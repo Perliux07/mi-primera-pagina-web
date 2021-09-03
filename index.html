@@ -1,73 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="./styles/style.css">
-
-    <title>PORTAFOLIO</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="./api.css">
 </head>
 
-
 <body>
+    <div class="card">
+        <div class="card__content">
 
-    <Main class="main">
+            <div class="image__container">
+                <img class="image" id="imagen" src="" alt="">
+            </div>
 
-        <section class="lado_izq">
-          <header class="header">
-              <h1 class="titulo">Perla Pereyra</h1>
-              <h2 class="subtitulo">PORTAFOLIO</h2>
-              <h3 class="nombre">Fundamentos de Programacion Web</h3>
-              <div class="contenedor_img">
-                <img src="./src/GifBallet.gif" alt="GifBallet">
-              </div>
-          </header>
-        </section>
+            <span>Nombre: <span id="nombre" class="name">Nombre</span></span>
+            <br>
+            <span>Tipo: <span id="type" class="type">Tipo </span></span>
+            <br>
+            <span>Peso: <span id="weight">Peso</span> Kg.</span>
 
-        <section class="lado_der">
+        </div>
+    </div>
 
-          <h2 class="subtitulo">ORGANIZACION DE LOS TEMAS</h2>
 
-          <details>
-              <summary>HTML</summary>
-              <ol> 
-                <li>
-                    <a href="./paginas/prueba 1.html">Go to page #1</a>
-                </li>
-      
-                <li>
-                    <a href="./paginas/index.html">Go to page #2</a>
-                </li>
-      
-                <li>
-                    <a href="./paginas/page2.html">Go to page #3</a>
-                </li>
-            </ol>
-          </details>
+    <script>
 
-          <details>
-            <summary>CSS</summary>
-            <ol> 
-              <li>
-                  <a href="./paginas/colors.html">Colors</a>
-              </li>
+        const base_url = `https://pokeapi.co/api/v2/pokemon/`
+        const idPokemon = prompt('Ingresa el numero del pokemon')
+        const url = base_url + idPokemon
 
-              <li>
-                <a href="./paginas/boxmodel.html">Boxmodel</a>
-            </li>
-           </ol>
-          </details>
+        fetch(url).then( (response)=> {
+            return response.json();
+        }).then( (data)=> {
+            nombre = document.getElementById("nombre");
+            nombre.innerHTML = data.name
+            
+            img = document.getElementById('imagen');
+            img.src = data.sprites.front_default
 
-          <details>
-            <summary>JS</summary>
-            <ol>
-              
-            </ol>
-          </details>
+            type = document.getElementById('type');
+            type.innerHTML = data.types[0].type.name
 
-        </section>
-    </Main>
+            peso = document.getElementById('weight');
+            peso.innerHTML = data.weight;
+
+        }).catch(function (error) {
+            alert("Error pokemon no encontrado")
+        });
+    </script>
 </body>
+
 </html>
